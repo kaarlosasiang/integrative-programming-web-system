@@ -52,24 +52,35 @@ const SidebarNav = () => {
   return `
     <ul class="nav">
         <li class="nav-header">Navigation</li>
+        <li>
+            <a href="/">
+                <i class="icon-grid"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+        
         <li class="has-sub">
             <a href="javascript:;">
                 <b class="caret"></b>
-                <i class="icon-screen-desktop"></i>
-                <span>Dashboard</span>
+                <i class="icon-user"></i>
+                <span>Manage Students</span>
             </a>
             <ul class="sub-menu">
-                <li><a href="index.html">Dashboard v1</a></li>
-                <li><a href="index_v2.html">Dashboard v2</a></li>
-                <li><a href="index_v3.html">Dashboard v3</a></li>
+                <li><a href="add-student.html">Add Student</a></li>
+                <li><a href="students-list.html">List of Students</a></li>
             </ul>
         </li>
 
-        <li>
-            <a href="calendar.html">
-                <i class="icon-calendar"></i>
-                <span>Calendar</span>
+        <li class="has-sub">
+            <a href="javascript:;">
+                <b class="caret"></b>
+                <i class="icon-user"></i>
+                <span>Manage Faculty</span>
             </a>
+            <ul class="sub-menu">
+                <li><a href="add-student.html">Add Staff</a></li>
+                <li><a href="students.html">List of Staff</a></li>
+            </ul>
         </li>
 
         <!-- begin sidebar minify button -->

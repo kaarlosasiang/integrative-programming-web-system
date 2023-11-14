@@ -1,3 +1,4 @@
+import Breadcrumb from "../../components/Breadcrumb.js";
 import Header from "../../components/Header.js";
 import PageLoader from "../../components/PageLoader.js";
 import Sidebar from "../../components/Sidebar.js";
@@ -11,17 +12,12 @@ class DashboardView extends View {
             ${Header()}
             ${Sidebar()}
 
-            <div id="content" class="content">
-        <!-- begin breadcrumb -->
-        <ol class="breadcrumb float-xl-right">
-          <li class="breadcrumb-item"><a href="javascript:;">Home</a></li>
-          <li class="breadcrumb-item active">Dashboard</li>
-        </ol>
-        <!-- end breadcrumb -->
-        <!-- begin page-header -->
-        <h1 class="page-header">
-          Dashboard <small>header small text goes here...</small>
-        </h1>
+        <div id="content" class="content">
+        
+          ${Breadcrumb()}
+          <h1 class="page-header">
+            Dashboard
+          </h1>
         <!-- end page-header -->
 
         <!-- begin row -->
