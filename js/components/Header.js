@@ -1,4 +1,4 @@
-export default Header = () => {
+export default function Header() {
   return `
   <div id="header" class="header navbar-default">
     <!-- begin navbar-header -->
@@ -19,7 +19,7 @@ export default Header = () => {
     ${ProfileDropdown()}
   </div>
   `;
-};
+}
 
 const SearchBar = () => {
   return `
