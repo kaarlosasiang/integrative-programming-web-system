@@ -1,6 +1,7 @@
 import '../../assets/js/app.min.js';
 import "../../assets/js/theme/default.min.js";
 
+
 export default class View {
   appContainer = document.getElementById("app");
 

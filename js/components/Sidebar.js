@@ -54,7 +54,7 @@ const SidebarNav = () => {
         <li class="nav-header">Navigation</li>
         <li>
             <a href="/">
-                <i class="icon-grid"></i>
+            <i class="fas fa-th-large"></i>
                 <span>Dashboard</span>
             </a>
         </li>
@@ -62,7 +62,7 @@ const SidebarNav = () => {
         <li class="has-sub">
             <a href="javascript:;">
                 <b class="caret"></b>
-                <i class="icon-user"></i>
+                <i class="fas fa-users"></i>
                 <span>Manage Students</span>
             </a>
             <ul class="sub-menu">
@@ -74,7 +74,7 @@ const SidebarNav = () => {
         <li class="has-sub">
             <a href="javascript:;">
                 <b class="caret"></b>
-                <i class="icon-user"></i>
+                <i class="fas fa-user"></i>
                 <span>Manage Faculty</span>
             </a>
             <ul class="sub-menu">

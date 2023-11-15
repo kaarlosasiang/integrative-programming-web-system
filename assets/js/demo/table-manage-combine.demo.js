@@ -15,7 +15,6 @@ var handleDataTableCombinationSetting = function() {
 				{ extend: 'copy', className: 'btn-sm' },
 				{ extend: 'csv', className: 'btn-sm' },
 				{ extend: 'excel', className: 'btn-sm' },
-				{ extend: 'pdf', className: 'btn-sm' },
 				{ extend: 'print', className: 'btn-sm' }
 			],
 			responsive: true,
