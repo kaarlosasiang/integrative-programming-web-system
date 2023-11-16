@@ -79,7 +79,7 @@ const SidebarNav = () => {
             </a>
             <ul class="sub-menu">
                 <li><a href="add-student.html">Add Staff</a></li>
-                <li><a href="students.html">List of Staff</a></li>
+                <li><a href="faculty-list.html">List of Staff</a></li>
             </ul>
         </li>
 
