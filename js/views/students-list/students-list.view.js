@@ -6,7 +6,7 @@ import Panel from "../../components/Panel.js";
 import Sidebar from "../../components/Sidebar.js";
 import View from "../view.js";
 import StudentsListTable from "./components/students-list.js";
-import sweetalert2 from 'https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/+esm'
+import sweetalert2 from "https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/+esm";
 
 // Table Plugins
 import "../../../assets/plugins/datatables.net/js/jquery.dataTables.min.js";
@@ -32,6 +32,34 @@ import "../../../assets/plugins/datatables.net-buttons/js/buttons.print.min.js";
 import "../../../assets/plugins/jszip/dist/jszip.min.js";
 
 class StudentsList extends View {
+  _deleteId = "";
+  tableOptions = {
+    dom: '<"dataTables_wrapper dt-bootstrap"<"row"<"col-xl-7 d-block d-sm-flex d-xl-block justify-content-center"<"d-block d-lg-inline-flex mr-0 mr-sm-3"l><"d-block d-lg-inline-flex"B>><"col-xl-5 d-flex d-xl-block justify-content-center"fr>>t<"row"<"col-sm-5"i><"col-sm-7"p>>>',
+    buttons: [
+      { extend: "copy", className: "btn-sm" },
+      { extend: "csv", className: "btn-sm" },
+      { extend: "excel", className: "btn-sm" },
+      { extend: "print", className: "btn-sm" },
+    ],
+    data: [],
+    columns: [
+      { data: "ID" },
+      { data: "Full Name" },
+      { data: "Course" },
+      { data: "Institute" },
+      { data: "Date Registered" },
+      { data: "Edit" },
+    ],
+    autoWidth: false,
+    responsive: true,
+    autoFill: true,
+    colReorder: false,
+    keys: true,
+    rowReorder: false,
+    select: false,
+  };
+  table = $("#data-table-combine").DataTable(this.tableOptions);
+
   generateAppMarkup() {
     return `
         ${PageLoader()}
@@ -53,32 +81,6 @@ class StudentsList extends View {
     if (!data || (Array.isArray(data) && data.length === 0))
       console.log("Data is empty");
 
-    let tableOptions = {
-      dom: '<"dataTables_wrapper dt-bootstrap"<"row"<"col-xl-7 d-block d-sm-flex d-xl-block justify-content-center"<"d-block d-lg-inline-flex mr-0 mr-sm-3"l><"d-block d-lg-inline-flex"B>><"col-xl-5 d-flex d-xl-block justify-content-center"fr>>t<"row"<"col-sm-5"i><"col-sm-7"p>>>',
-      buttons: [
-        { extend: "copy", className: "btn-sm" },
-        { extend: "csv", className: "btn-sm" },
-        { extend: "excel", className: "btn-sm" },
-        { extend: "print", className: "btn-sm" },
-      ],
-      data: [],
-      columns: [
-        { data: "ID" },
-        { data: "Full Name" },
-        { data: "Course" },
-        { data: "Institute" },
-        { data: "Date Registered" },
-        { data: "Edit" },
-      ],
-      autoWidth: false,
-      responsive: true,
-      autoFill: true,
-      colReorder: false,
-      keys: true,
-      rowReorder: false,
-      select: false,
-    };
-
     const dateOptions = {
       month: "long",
       day: "numeric",
@@ -86,14 +88,14 @@ class StudentsList extends View {
     };
 
     if ($(window).width() <= 767) {
-      tableOptions.rowReorder = false;
-      tableOptions.colReorder = false;
-      tableOptions.autoFill = false;
+      this.tableOptions.rowReorder = false;
+      this.tableOptions.colReorder = false;
+      this.tableOptions.autoFill = false;
     }
 
     if (data) {
       data.forEach((data) => {
-        tableOptions.data.push({
+        this.tableOptions.data.push({
           ID: data.student_id,
           "Full Name": `${data.firstname} ${data.middlename} ${data.lastname}`,
           Course: data.course,
@@ -109,9 +111,12 @@ class StudentsList extends View {
           </div>`,
         });
       });
+    } else {
+      this.tableOptions.data = [];
     }
 
-    const table = $("#data-table-combine").DataTable(tableOptions);
+    this.table.destroy();
+    const table = $("#data-table-combine").DataTable(this.tableOptions);
 
     table.on("select", function (e, dt, type, indexes) {
       if (type === "row") {
@@ -122,29 +127,32 @@ class StudentsList extends View {
     });
   }
 
-  bindDeleteHandler() {
+  bindDeleteHandler(handler) {
     const deleteBtns = document.querySelectorAll(".delete-student-btn");
     deleteBtns.forEach((btn) => {
       btn.addEventListener("click", (e) => {
-        sweetalert2.fire({
-          title: "Are you sure?",
-          text: "You won't be able to revert this!",
-          icon: "warning",
-          showCancelButton: true,
-          confirmButtonColor: "#3085d6",
-          cancelButtonColor: "#d33",
-          confirmButtonText: "Yes, delete it!",
-        }).then((result) => {
-          if (result.isConfirmed) {
-            sweetalert2.fire({
-              title: "Deleted!",
-              text: "Your file has been deleted.",
-              icon: "success",
-            });
-          }
-        });
+        sweetalert2
+          .fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!",
+          })
+          .then((result) => {
+            if (result.isConfirmed) {
+              this._deleteId = e.target.dataset.id;
+              handler();
+            }
+          });
       });
     });
+  }
+
+  getDeleteId() {
+    return this._deleteId;
   }
 }
 

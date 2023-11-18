@@ -9,6 +9,7 @@ const controlRegisterStudent = async () => {
   await model.registerStudent("/student.php", formData);
   console.log(model.state.response);
   if (model.state.response.status === 201) {
+    AddStudentView.clearFormInputs();
     AddStudentView.showToast("Registered Successfully!", "success");
   }
 };

@@ -1,12 +1,37 @@
 import StudentsListView from "../views/students-list/students-list.view.js";
+import sweetalert2 from "https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/+esm";
 import * as model from "../model.js";
 
 const init = async () => {
   StudentsListView.render();
-  await model.get("/student.php");
+
+  await getStudentsList();
+
   handleHttpResponse(model.state.response);
-  
-  StudentsListView.bindDeleteHandler();
+
+  StudentsListView.bindDeleteHandler(controlDeleteStudent);
+};
+
+const getStudentsList = async () => {
+  await model.get("/student.php");
+};
+
+const controlDeleteStudent = async () => {
+  // get data
+  const studentId = StudentsListView.getDeleteId();
+  await model.deleteStudent(studentId);
+
+  console.log(model.state.response);
+  if (model.state.response.status === 200) {
+    await getStudentsList();
+    console.log(model.state.response);
+    StudentsListView.initializeTableData(model.state.response.data.data);
+    sweetalert2.fire({
+      title: "Deleted!",
+      text: "Student has been deleted.",
+      icon: "success",
+    });
+  }
 };
 
 const handleHttpResponse = (res) => {

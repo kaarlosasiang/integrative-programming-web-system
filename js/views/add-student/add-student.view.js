@@ -5,7 +5,7 @@ import PageLoader from "../../components/PageLoader.js";
 import Panel from "../../components/Panel.js";
 import Sidebar from "../../components/Sidebar.js";
 import View from "../view.js";
-import AddStudentForm from "./components/add-student-form.js";
+import { AddStudentForm, clearForm } from "./components/add-student-form.js";
 
 import "../../../assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.js";
 import "../../../assets/js/demo/form-plugins.demo.js";
@@ -112,6 +112,10 @@ class AddStudentView extends View {
 
   getFormData() {
     return { ...this._formData };
+  }
+
+  clearFormInputs() {
+    clearForm();
   }
 }
 

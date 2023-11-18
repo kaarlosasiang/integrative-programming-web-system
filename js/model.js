@@ -24,10 +24,18 @@ export const get = async (route) => {
   }
 };
 
-
 export const registerStudent = async (route, formData) => {
   try {
     const res = await http.post(route, formData);
+    state.response = res;
+  } catch (err) {
+    state.response = res;
+  }
+};
+
+export const deleteStudent = async (id) => {
+  try {
+    const res = await http.delete(`/student.php?id=${id}`);
     state.response = res;
   } catch (err) {
     state.response = res;

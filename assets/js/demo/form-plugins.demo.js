@@ -30,7 +30,8 @@ if(typeof String.prototype.trim !== 'function') {
 
 var handleDatepicker = function() {
 	$('#datepicker-default').datepicker({
-		todayHighlight: true
+		todayHighlight: true,
+		format: "yyyy-mm-dd"
 	});
 	$('#datepicker-inline').datepicker({
 		todayHighlight: true

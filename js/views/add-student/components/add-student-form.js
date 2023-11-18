@@ -1,7 +1,6 @@
-export default function AddStudentForm() {
+export function AddStudentForm() {
   return `
     <form class="form-horizontal" id="register-student-form" data-parsley-validate="true" method="POST" name="demo-form">
-
         <div class="row no-gutters">
 
             <div class="form-group col-lg-4 col-md-6 col-sm-12 m-b-5"></div>
@@ -138,4 +137,23 @@ export default function AddStudentForm() {
         <button type="submit" class="btn btn-md btn-primary m-5">Register Student</button>
     </form>
   `;
+}
+
+export function clearForm() {
+  document.querySelector("#firstname").value = "";
+  document.querySelector("#middlename").value = "";
+  document.querySelector("#lastname").value = "";
+  document.querySelector("#birthday").value = "";
+  document.querySelector("#gender").value = "";
+  document.querySelector("#contact_number").value = "";
+  document.querySelector("#province").value = "";
+  document.querySelector("#municipality").value = "";
+  document.querySelector("#barangay").value = "";
+  document.querySelector("#purok").value = "";
+  document.querySelector("#zipcode").value = "";
+  document.querySelector("#guardian_name").value = "";
+  document.querySelector("#guardian_contact").value = "";
+  document.querySelector("#guardian_address").value = "";
+  document.querySelector("#institute").value = "";
+  document.querySelector("#course").value = "";
 }
