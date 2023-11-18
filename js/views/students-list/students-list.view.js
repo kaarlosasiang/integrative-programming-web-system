@@ -94,6 +94,9 @@ class StudentsList extends View {
     }
 
     if (data) {
+      // Clear table data first every instantiation of the table
+      this.tableOptions.data = [];
+      // Feed data to the table
       data.forEach((data) => {
         this.tableOptions.data.push({
           ID: data.student_id,
@@ -106,7 +109,7 @@ class StudentsList extends View {
           ),
           Edit: `
           <div class="d-flex">
-            <a class="btn btn-sm btn-primary mr-1 edit-student-btn" data-id="${data.student_id}">Edit</a>
+            <a class="btn btn-sm btn-primary mr-1 edit-student-btn" href="update-student.html?update=${data.student_id}">Edit</a>
             <a class="btn btn-sm btn-danger delete-student-btn" data-id="${data.student_id}">Delete</a>
           </div>`,
         });
@@ -115,16 +118,17 @@ class StudentsList extends View {
       this.tableOptions.data = [];
     }
 
+    // Destroy the every instantiation to avoid duplicate error
     this.table.destroy();
-    const table = $("#data-table-combine").DataTable(this.tableOptions);
+    this.table = $("#data-table-combine").DataTable(this.tableOptions);
 
-    table.on("select", function (e, dt, type, indexes) {
-      if (type === "row") {
-        var data = table.rows(indexes).data()[0];
+    // this.table.on("select", function (e, dt, type, indexes) {
+    //   if (type === "row") {
+    //     var data = table.rows(indexes).data()[0];
 
-        console.log(data);
-      }
-    });
+    //     console.log(data);
+    //   }
+    // });
   }
 
   bindDeleteHandler(handler) {

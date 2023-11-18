@@ -1,4 +1,4 @@
-import "https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js";
+import "../assets/js/axios.min.js";
 
 const http = axios.create({
   baseURL: "http://localhost/integrative-programming-web-system-backend/api",
@@ -20,7 +20,7 @@ export const get = async (route) => {
     const res = await http.get(route);
     state.response = res;
   } catch (err) {
-    state.response = res;
+    state.response = err;
   }
 };
 
@@ -29,7 +29,16 @@ export const registerStudent = async (route, formData) => {
     const res = await http.post(route, formData);
     state.response = res;
   } catch (err) {
+    state.response = err;
+  }
+};
+
+export const updateStudent = async (id, formData) => {
+  try {
+    const res = await http.patch(`/student.php?id=${id}`, formData);
     state.response = res;
+  } catch (err) {
+    state.response = err;
   }
 };
 
@@ -38,6 +47,6 @@ export const deleteStudent = async (id) => {
     const res = await http.delete(`/student.php?id=${id}`);
     state.response = res;
   } catch (err) {
-    state.response = res;
+    state.response = err;
   }
 };

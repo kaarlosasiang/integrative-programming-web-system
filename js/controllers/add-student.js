@@ -11,6 +11,8 @@ const controlRegisterStudent = async () => {
   if (model.state.response.status === 201) {
     AddStudentView.clearFormInputs();
     AddStudentView.showToast("Registered Successfully!", "success");
+  } else {
+    AddStudentView.showToast(model.state.response.message, "error");
   }
 };
 

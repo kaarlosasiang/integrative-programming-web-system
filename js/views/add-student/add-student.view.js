@@ -13,11 +13,6 @@ import "../../../assets/plugins/select2/dist/js/select2.min.js";
 
 class AddStudentView extends View {
   _formData = {};
-  courses = {
-    fcdset: ["BSIT", "BSCE", "BITM", "BSM", "BSMRS"],
-    fnahs: ["BSN"],
-    fgbm: ["BSCRIM", "BSBA", "BSHM"],
-  };
 
   constructor() {
     super();
@@ -45,40 +40,23 @@ class AddStudentView extends View {
     form.addEventListener("submit", (e) => {
       e.preventDefault();
 
-      const firstname = e.target.elements.firstname.value.trim();
-      const middlename = e.target.elements.middlename.value.trim();
-      const lastname = e.target.elements.lastname.value.trim();
-      const birthday = e.target.elements.birthday.value.trim();
-      const gender = e.target.elements.gender.value.trim();
-      const contact = e.target.elements.contact_number.value.trim();
-      const province = e.target.elements.province.value.trim();
-      const municipality = e.target.elements.municipality.value.trim();
-      const barangay = e.target.elements.barangay.value.trim();
-      const street = e.target.elements.purok.value.trim();
-      const zipcode = e.target.elements.zipcode.value.trim();
-      const guardian_name = e.target.elements.guardian_name.value.trim();
-      const guardian_contact = e.target.elements.guardian_contact.value.trim();
-      const guardian_address = e.target.elements.guardian_address.value.trim();
-      const institute = e.target.elements.institute.value.trim().toUpperCase();
-      const course = e.target.elements.course.value.trim().toUpperCase();
-
       this._formData = {
-        firstname,
-        middlename,
-        lastname,
-        birthday,
-        gender,
-        contact,
-        province,
-        municipality,
-        barangay,
-        street,
-        zipcode,
-        guardian_name,
-        guardian_contact,
-        guardian_address,
-        institute,
-        course,
+        firstname: e.target.elements.firstname.value.trim(),
+        middlename: e.target.elements.middlename.value.trim(),
+        lastname: e.target.elements.lastname.value.trim(),
+        birthday: e.target.elements.birthday.value.trim(),
+        gender: e.target.elements.gender.value.trim(),
+        contact: e.target.elements.contact_number.value.trim(),
+        province: e.target.elements.province.value.trim(),
+        municipality: e.target.elements.municipality.value.trim(),
+        barangay: e.target.elements.barangay.value.trim(),
+        street: e.target.elements.purok.value.trim(),
+        zipcode: e.target.elements.zipcode.value.trim(),
+        guardian_name: e.target.elements.guardian_name.value.trim(),
+        guardian_contact: e.target.elements.guardian_contact.value.trim(),
+        guardian_address: e.target.elements.guardian_address.value.trim(),
+        institute: e.target.elements.institute.value.trim().toUpperCase(),
+        course: e.target.elements.course.value.trim().toUpperCase(),
       };
 
       handler();

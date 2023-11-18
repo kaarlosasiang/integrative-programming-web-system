@@ -23,14 +23,14 @@ const controlDeleteStudent = async () => {
 
   console.log(model.state.response);
   if (model.state.response.status === 200) {
-    await getStudentsList();
-    console.log(model.state.response);
-    StudentsListView.initializeTableData(model.state.response.data.data);
     sweetalert2.fire({
       title: "Deleted!",
       text: "Student has been deleted.",
       icon: "success",
     });
+    await getStudentsList();
+    console.log(model.state.response.data.data);
+    StudentsListView.initializeTableData(model.state.response.data.data);
   }
 };
 
