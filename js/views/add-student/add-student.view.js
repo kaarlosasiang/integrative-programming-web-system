@@ -19,6 +19,10 @@ class AddStudentView extends View {
     fgbm: ["BSCRIM", "BSBA", "BSHM"],
   };
 
+  constructor() {
+    super();
+  }
+
   generateAppMarkup() {
     return `
         ${PageLoader()}
@@ -55,8 +59,8 @@ class AddStudentView extends View {
       const guardian_name = e.target.elements.guardian_name.value.trim();
       const guardian_contact = e.target.elements.guardian_contact.value.trim();
       const guardian_address = e.target.elements.guardian_address.value.trim();
-      const institute = e.target.elements.institute.value.trim();
-      const course = e.target.elements.course.value.trim();
+      const institute = e.target.elements.institute.value.trim().toUpperCase();
+      const course = e.target.elements.course.value.trim().toUpperCase();
 
       this._formData = {
         firstname,

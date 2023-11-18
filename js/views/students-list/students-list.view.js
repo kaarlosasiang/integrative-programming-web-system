@@ -6,6 +6,7 @@ import Panel from "../../components/Panel.js";
 import Sidebar from "../../components/Sidebar.js";
 import View from "../view.js";
 import StudentsListTable from "./components/students-list.js";
+import sweetalert2 from 'https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/+esm'
 
 // Table Plugins
 import "../../../assets/plugins/datatables.net/js/jquery.dataTables.min.js";
@@ -67,13 +68,15 @@ class StudentsList extends View {
         { data: "Course" },
         { data: "Institute" },
         { data: "Date Registered" },
+        { data: "Edit" },
       ],
+      autoWidth: false,
       responsive: true,
       autoFill: true,
       colReorder: false,
       keys: true,
       rowReorder: false,
-      select: true,
+      select: false,
     };
 
     const dateOptions = {
@@ -99,20 +102,48 @@ class StudentsList extends View {
             "en-US",
             dateOptions
           ),
+          Edit: `
+          <div class="d-flex">
+            <a class="btn btn-sm btn-primary mr-1 edit-student-btn" data-id="${data.student_id}">Edit</a>
+            <a class="btn btn-sm btn-danger delete-student-btn" data-id="${data.student_id}">Delete</a>
+          </div>`,
         });
       });
-
-      console.log(tableOptions.data);
     }
 
     const table = $("#data-table-combine").DataTable(tableOptions);
 
     table.on("select", function (e, dt, type, indexes) {
       if (type === "row") {
-        var data = table.rows(indexes).data()[0]
+        var data = table.rows(indexes).data()[0];
 
         console.log(data);
       }
+    });
+  }
+
+  bindDeleteHandler() {
+    const deleteBtns = document.querySelectorAll(".delete-student-btn");
+    deleteBtns.forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        sweetalert2.fire({
+          title: "Are you sure?",
+          text: "You won't be able to revert this!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, delete it!",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            sweetalert2.fire({
+              title: "Deleted!",
+              text: "Your file has been deleted.",
+              icon: "success",
+            });
+          }
+        });
+      });
     });
   }
 }

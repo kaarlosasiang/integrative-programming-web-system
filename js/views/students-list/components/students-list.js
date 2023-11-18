@@ -8,6 +8,7 @@ export default function StudentsListTable() {
               <th class="text-nowrap">Course</th>
               <th class="text-nowrap">Institute</th>
               <th class="text-nowrap">Date Registered</th>
+              <th class="text-nowrap">Edit</th>
           </tr>
       </thead>
       <tbody></tbody>

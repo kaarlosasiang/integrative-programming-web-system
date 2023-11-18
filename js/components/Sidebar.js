@@ -78,13 +78,13 @@ const SidebarNav = () => {
                 <span>Manage Faculty</span>
             </a>
             <ul class="sub-menu">
-                <li><a href="add-student.html">Add Staff</a></li>
+                <li><a href="add-faculty.html">Add Staff</a></li>
                 <li><a href="faculty-list.html">List of Staff</a></li>
             </ul>
         </li>
 
         <!-- begin sidebar minify button -->
-        <li>
+        <!-- <li>
             <a
                 href="javascript:;"
                 class="sidebar-minify-btn"
@@ -92,7 +92,7 @@ const SidebarNav = () => {
                 ><i class="fa fa-angle-double-left">
                 </i>
             </a>
-        </li>
+        </li> -->
         <!-- end sidebar minify button -->
     </ul>
     `;

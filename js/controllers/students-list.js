@@ -3,9 +3,10 @@ import * as model from "../model.js";
 
 const init = async () => {
   StudentsListView.render();
-  await model.getAllStudents("/student.php");
-
+  await model.get("/student.php");
   handleHttpResponse(model.state.response);
+  
+  StudentsListView.bindDeleteHandler();
 };
 
 const handleHttpResponse = (res) => {

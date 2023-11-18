@@ -15,7 +15,7 @@ export const state = {
   response: {},
 };
 
-export const getAllStudents = async (route) => {
+export const get = async (route) => {
   try {
     const res = await http.get(route);
     state.response = res;
@@ -23,6 +23,7 @@ export const getAllStudents = async (route) => {
     state.response = res;
   }
 };
+
 
 export const registerStudent = async (route, formData) => {
   try {

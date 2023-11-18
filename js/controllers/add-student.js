@@ -8,6 +8,9 @@ const controlRegisterStudent = async () => {
   // load data
   await model.registerStudent("/student.php", formData);
   console.log(model.state.response);
+  if (model.state.response.status === 201) {
+    AddStudentView.showToast("Registered Successfully!", "success");
+  }
 };
 
 const init = () => {
