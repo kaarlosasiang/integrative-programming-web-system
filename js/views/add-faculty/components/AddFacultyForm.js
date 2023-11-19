@@ -2,7 +2,7 @@ export default function AddFacultyForm() {
   return `
           <form
           class="form-horizontal"
-          id="register-student-form"
+          id="add-faculty-form"
           data-parsley-validate="true"
           method="POST"
           name="demo-form"

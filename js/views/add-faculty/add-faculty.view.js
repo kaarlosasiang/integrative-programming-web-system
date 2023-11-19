@@ -8,6 +8,8 @@ import View from "../view.js";
 import AddFacultyForm from "./components/AddFacultyForm.js";
 
 class AddFacultyView extends View {
+  formData = {};
+
   generateAppMarkup() {
     return `
             ${PageLoader}
@@ -23,6 +25,31 @@ class AddFacultyView extends View {
                 </div>
             </div>
         `;
+  }
+
+  bindAddFacultyHandler(handler) {
+    const form = document.getElementById("add-faculty-form");
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      this._formData = {
+        firstname: e.target.elements.firstname.value.trim(),
+        middlename: e.target.elements.middlename.value.trim(),
+        lastname: e.target.elements.lastname.value.trim(),
+        birthday: e.target.elements.birthday.value.trim(),
+        gender: e.target.elements.gender.value.trim(),
+        contact: e.target.elements.contact_number.value.trim(),
+        institute: e.target.elements.institute.value.trim().toUpperCase(),
+        course: e.target.elements.course.value.trim().toUpperCase(),
+      };
+
+      handler();
+    });
+  }
+
+  getFormData() {
+    return { ...this.formData };
   }
 }
 
