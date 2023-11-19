@@ -16,10 +16,29 @@ const controlRegisterStudent = async () => {
   }
 };
 
+const getInstitutesList = async () => {
+  await model.get("/institute.php");
+  const res = model.state.response;
+
+  if (res.status === 200) {
+    AddStudentView.initializeInstitutesDropdown(res.data.data);
+  }
+};
+
+const getCoursesList = async () => {
+  await model.get("/course.php");
+  const res = model.state.response;
+
+  if (res.status === 200) {
+    AddStudentView.initializeCoursesDropdown(res.data.data);
+  }
+};
+
 const init = () => {
   AddStudentView.render();
+  getInstitutesList();
+  getCoursesList();
   AddStudentView.bindFormSubmitHandler(controlRegisterStudent);
-  AddStudentView.bindInstituteSelectHandler();
 };
 
 init();

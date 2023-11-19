@@ -1,12 +1,31 @@
 import FacultyListView from "../views/faculty-list/faculty-list.view.js";
+import sweetalert2 from "https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/+esm";
 import * as model from "../model.js";
 
 const init = async () => {
   FacultyListView.render();
   await model.get("faculty.php");
 
-  console.log(model.state.response);
-  FacultyListView.initializeTableData(model.state.response.data)
+  FacultyListView.initializeTableData(model.state.response.data);
+
+  FacultyListView.bindDeleteHandler(controlDeleteFaculty);
+};
+
+const controlDeleteFaculty = async () => {
+  const id = FacultyListView.getDeleteId();
+  await model.deleteFaculty(id);
+
+  const res = model.state.response;
+  if (res.status === 200) {
+    sweetalert2.fire({
+      title: "Deleted!",
+      text: "Student has been deleted.",
+      icon: "success",
+    });
+    await model.get("/faculty.php");
+    console.log(model.state.response);
+    FacultyListView.initializeTableData(model.state.response.data);
+  }
 };
 
 init();

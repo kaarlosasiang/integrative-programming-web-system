@@ -6,7 +6,7 @@ import Panel from "../../components/Panel.js";
 import Sidebar from "../../components/Sidebar.js";
 import View from "../view.js";
 import StudentsListTable from "./components/students-list.js";
-import sweetalert2 from "https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/+esm";
+import sweetalert2 from "../../../assets/js/sweetalert2.js";
 
 // Table Plugins
 import "../../../assets/plugins/datatables.net/js/jquery.dataTables.min.js";

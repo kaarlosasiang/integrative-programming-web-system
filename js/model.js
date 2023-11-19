@@ -59,3 +59,12 @@ export const deleteStudent = async (id) => {
     state.response = err;
   }
 };
+
+export const deleteFaculty = async (id) => {
+  try {
+    const res = await http.delete(`/faculty.php?id=${id}`);
+    state.response = res;
+  } catch (err) {
+    state.response = err;
+  }
+};

@@ -29,7 +29,6 @@ const controlDeleteStudent = async () => {
       icon: "success",
     });
     await getStudentsList();
-    console.log(model.state.response.data.data);
     StudentsListView.initializeTableData(model.state.response.data.data);
   }
 };

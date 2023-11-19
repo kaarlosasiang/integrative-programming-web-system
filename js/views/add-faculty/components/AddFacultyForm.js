@@ -137,7 +137,7 @@ export default function AddFacultyForm() {
               </div>
           </div>
           <button type="submit" class="btn btn-md btn-primary m-5">
-              Register Student
+              Add Faculty
           </button>
           </form>
     `;

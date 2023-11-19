@@ -13,6 +13,7 @@ import "../../../assets/plugins/select2/dist/js/select2.min.js";
 
 class AddStudentView extends View {
   _formData = {};
+  courses = [];
 
   constructor() {
     super();
@@ -63,30 +64,30 @@ class AddStudentView extends View {
     });
   }
 
-  bindInstituteSelectHandler() {
-    document.addEventListener("DOMContentLoaded", () => {
-      const selectInstituteField = document.getElementById("institute");
-      const selectCoursesField = document.getElementById("course");
+  // bindInstituteSelectHandler() {
+  //   document.addEventListener("DOMContentLoaded", () => {
+  //     const selectInstituteField = document.getElementById("institute");
+  //     const selectCoursesField = document.getElementById("course");
 
-      selectInstituteField.addEventListener("change", (e) => {
-        // Clear all options
-        selectCoursesField.innerHTML = "";
+  //     selectInstituteField.addEventListener("change", (e) => {
+  //       // Clear all options
+  //       selectCoursesField.innerHTML = "";
 
-        const institute = e.target.value;
-        const selectedInstituteCourses = this.courses[`${institute}`];
+  //       const institute = e.target.value;
+  //       const selectedInstituteCourses = this.courses[`${institute}`];
 
-        if (selectedInstituteCourses) {
-          for (let i = 0; i < selectedInstituteCourses.length; i++) {
-            let option = document.createElement("option");
-            option.value = selectedInstituteCourses[i].toLowerCase();
-            option.text = selectedInstituteCourses[i];
+  //       if (selectedInstituteCourses) {
+  //         for (let i = 0; i < selectedInstituteCourses.length; i++) {
+  //           let option = document.createElement("option");
+  //           option.value = selectedInstituteCourses[i].toLowerCase();
+  //           option.text = selectedInstituteCourses[i];
 
-            selectCoursesField.appendChild(option);
-          }
-        }
-      });
-    });
-  }
+  //           selectCoursesField.appendChild(option);
+  //         }
+  //       }
+  //     });
+  //   });
+  // }
 
   getFormData() {
     return { ...this._formData };
@@ -94,6 +95,66 @@ class AddStudentView extends View {
 
   clearFormInputs() {
     clearForm();
+  }
+
+  initializeInstitutesDropdown(data) {
+    const instituteSelect = document.getElementById("institute");
+
+    let defaultOption = document.createElement("option");
+    defaultOption.value = "";
+    defaultOption.text = "Select an Institute";
+
+    instituteSelect.appendChild(defaultOption);
+
+    for (let i = 0; i < data.length; i++) {
+      let option = document.createElement("option");
+      option.value = data[i].slug;
+      option.text = data[i].title;
+
+      instituteSelect.appendChild(option);
+    }
+  }
+
+  initializeCoursesDropdown(data) {
+    const coursesSelect = document.getElementById("course");
+    const instituteSelect = document.getElementById("institute");
+
+    // Initialize courses array with sorted courses based on its institute
+    this.courses.push(
+      data.reduce((acc, current) => {
+        const { institute, ...rest } = current;
+
+        if (!acc[institute]) {
+          acc[institute] = [];
+        }
+
+        acc[institute].push(rest);
+
+        return acc;
+      }, {})
+    );
+
+    instituteSelect.addEventListener("change", (e) => {
+      // Clear all options every change
+      coursesSelect.innerHTML = "";
+      const institute = e.target.value;
+      const selectedInstituteCourses = this.courses[0][`${institute}`];
+      console.log(selectedInstituteCourses);
+
+      if (selectedInstituteCourses) {
+        for (let i = 0; i < selectedInstituteCourses.length; i++) {
+          let option = document.createElement("option");
+          option.value = selectedInstituteCourses[i].slug;
+          option.text = selectedInstituteCourses[i].title;
+          coursesSelect.appendChild(option);
+        }
+      } else {
+        let option = document.createElement("option");
+        option.value = "";
+        option.text = "No Courses Available";
+        coursesSelect.appendChild(option);
+      }
+    });
   }
 }
 
