@@ -31,6 +31,33 @@ import "../../../assets/plugins/datatables.net-buttons/js/buttons.print.min.js";
 import "../../../assets/plugins/jszip/dist/jszip.min.js";
 
 class FacultyListView extends View {
+  tableOptions = {
+    dom: '<"dataTables_wrapper dt-bootstrap"<"row"<"col-xl-7 d-block d-sm-flex d-xl-block justify-content-center"<"d-block d-lg-inline-flex mr-0 mr-sm-3"l><"d-block d-lg-inline-flex"B>><"col-xl-5 d-flex d-xl-block justify-content-center"fr>>t<"row"<"col-sm-5"i><"col-sm-7"p>>>',
+    buttons: [
+      { extend: "copy", className: "btn-sm" },
+      { extend: "csv", className: "btn-sm" },
+      { extend: "excel", className: "btn-sm" },
+      { extend: "print", className: "btn-sm" },
+    ],
+    data: [],
+    columns: [
+      { data: "ID" },
+      { data: "Full Name" },
+      { data: "Course" },
+      { data: "Institute" },
+      { data: "Date Registered" },
+      { data: "Edit" },
+    ],
+    autoWidth: false,
+    responsive: true,
+    autoFill: true,
+    colReorder: false,
+    keys: true,
+    rowReorder: false,
+    select: false,
+  };
+  table = $("#data-table-combine").DataTable(this.tableOptions);
+
   generateAppMarkup() {
     return `
             ${PageLoader()}
@@ -66,6 +93,7 @@ class FacultyListView extends View {
         { data: "Full Name" },
         { data: "Course" },
         { data: "Institute" },
+        { data: "Contact" },
         { data: "Date Registered" },
         { data: "Edit" },
       ],
@@ -75,7 +103,7 @@ class FacultyListView extends View {
       colReorder: false,
       keys: true,
       rowReorder: false,
-      select: true,
+      select: false,
     };
 
     const dateOptions = {
@@ -91,9 +119,9 @@ class FacultyListView extends View {
     }
 
     if (data?.data) {
-      data.forEach((data) => {
+      data.data.forEach((data) => {
         tableOptions.data.push({
-          ID: data.student_id,
+          ID: data.id,
           "Full Name": `${data.firstname} ${data.middlename} ${data.lastname}`,
           Course: data.course,
           Institute: data.institute,
@@ -101,7 +129,8 @@ class FacultyListView extends View {
             "en-US",
             dateOptions
           ),
-          Edit: `<div class="d-flex"><a class="btn btn-sm btn-primary mr-1">Edit</a><a class="btn btn-sm btn-danger">Delete</a></div>`,
+          Contact: data.contact,
+          Edit: `<div class="d-flex"><a class="btn btn-sm btn-primary mr-1" href="update-faculty.html?update=${data.id}">Edit</a><a class="btn btn-sm btn-danger">Delete</a></div>`,
         });
       });
 

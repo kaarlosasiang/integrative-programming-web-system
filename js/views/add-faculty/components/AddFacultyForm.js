@@ -119,14 +119,6 @@ export default function AddFacultyForm() {
               </label>
               <div class="col-12">
                   <select class="form-control" id="institute" name="institute">
-                  <option disabled selected>
-                      Select An Institute
-                  </option>
-                  <option value="fcdset">FCDSET</option>
-                  <option value="fnahs">FNAHS</option>
-                  <option value="fals">FALS</option>
-                  <option value="fted">FTED</option>
-                  <option value="fgbm">FGBM</option>
                   </select>
               </div>
               </div>

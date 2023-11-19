@@ -83,6 +83,26 @@ const SidebarNav = () => {
             </ul>
         </li>
 
+        <li>
+            <a href="/">
+            <i class="fas fa-book"></i>
+            <span>Subjects</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="/">
+            <i class="fas fa-building"></i>
+                <span>Institute</span>
+            </a>
+        </li>
+        <li>
+        <a href="/">
+        <i class="fas fa-graduation-cap"></i>
+            <span>Courses</span>
+        </a>
+    </li>
+
         <!-- begin sidebar minify button -->
         <!-- <li>
             <a
