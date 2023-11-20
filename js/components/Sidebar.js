@@ -3,7 +3,6 @@ export default function Sidebar() {
     <div id="sidebar" class="sidebar">
         <!-- begin sidebar scrollbar -->
         <div data-scrollbar="true" data-height="100%">
-            ${UserSidebar()}
             ${SidebarNav()}
         </div>
     </div>
@@ -50,8 +49,7 @@ const UserSidebar = () => {
 
 const SidebarNav = () => {
   return `
-    <ul class="nav">
-        <li class="nav-header">Navigation</li>
+    <ul class="nav mt-2">
         <li>
             <a href="/">
             <i class="fas fa-th-large"></i>
@@ -84,14 +82,14 @@ const SidebarNav = () => {
         </li>
 
         <li>
-            <a href="/">
+            <a href="subjects.html">
             <i class="fas fa-book"></i>
             <span>Subjects</span>
             </a>
         </li>
 
         <li>
-            <a href="/">
+            <a href="institute.html">
             <i class="fas fa-building"></i>
                 <span>Institute</span>
             </a>

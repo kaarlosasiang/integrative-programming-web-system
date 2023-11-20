@@ -24,6 +24,15 @@ export const get = async (route) => {
   }
 };
 
+export const login = async (formData) => {
+  try {
+    const res = await http.post("/auth/login.php", formData);
+    state.response = res;
+  } catch (err) {
+    state.response = err;
+  }
+};
+
 export const registerStudent = async (route, formData) => {
   try {
     const res = await http.post(route, formData);
@@ -36,6 +45,15 @@ export const registerStudent = async (route, formData) => {
 export const addFaculty = async (formData) => {
   try {
     const res = await http.post(`/faculty.php`, formData);
+    state.response = res;
+  } catch (err) {
+    state.response = err;
+  }
+};
+
+export const addSubject = async (formData) => {
+  try {
+    const res = await http.post("/subject.php", formData);
     state.response = res;
   } catch (err) {
     state.response = err;

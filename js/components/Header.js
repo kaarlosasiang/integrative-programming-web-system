@@ -4,7 +4,7 @@ export default function Header() {
     <!-- begin navbar-header -->
     <div class="navbar-header">
         <a href="index.html" class="navbar-brand"
-        ><span class="navbar-logo"></span> <b>Kaarlo</b> Sasiang</a
+        ><span class="navbar-logo"></span> <b>ITPE130</b>Web System</a
         >
         <button
         type="button"
