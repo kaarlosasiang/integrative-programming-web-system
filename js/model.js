@@ -69,6 +69,15 @@ export const updateStudent = async (id, formData) => {
   }
 };
 
+export const updateSubject = async (code, formData) => {
+  try {
+    const res = await http.patch(`/subject.php?code=${code}`, formData);
+    state.response = res;
+  } catch (err) {
+    state.response = err;
+  }
+};
+
 export const deleteStudent = async (id) => {
   try {
     const res = await http.delete(`/student.php?id=${id}`);
@@ -81,6 +90,15 @@ export const deleteStudent = async (id) => {
 export const deleteFaculty = async (id) => {
   try {
     const res = await http.delete(`/faculty.php?id=${id}`);
+    state.response = res;
+  } catch (err) {
+    state.response = err;
+  }
+};
+
+export const deleteSubject = async (code) => {
+  try {
+    const res = await http.delete(`/subject.php?code=${code}`);
     state.response = res;
   } catch (err) {
     state.response = err;

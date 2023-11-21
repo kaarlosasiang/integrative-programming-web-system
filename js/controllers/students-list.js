@@ -1,5 +1,5 @@
 import StudentsListView from "../views/students-list/students-list.view.js";
-import sweetalert2 from "https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/+esm";
+import sweetalert2 from "../../assets/js/sweetalert2.js";
 import * as model from "../model.js";
 
 const init = async () => {

@@ -35,6 +35,7 @@ export function AddSubjectForm() {
                           <option value="" selected>Select Subject Type</option>
                           <option value="lecture">Lecture</option>
                           <option value="laboratory">Laboratory</option>
+                          <option value="lecture & laboratory">Lecture & Laboratory</option>
                       </select>
                   </div>
               </div>

@@ -3,6 +3,7 @@ export default function Sidebar() {
     <div id="sidebar" class="sidebar">
         <!-- begin sidebar scrollbar -->
         <div data-scrollbar="true" data-height="100%">
+            ${UserSidebar()}
             ${SidebarNav()}
         </div>
     </div>
