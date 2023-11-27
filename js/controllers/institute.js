@@ -34,6 +34,28 @@ const controlDeleteInstitute = async () => {
       icon: "success",
     });
     initializeInstitutesTable();
+  } else {
+    sweetalert2.fire({
+      title: "Error!",
+      text: "There was a problem deleting the Institute!",
+      icon: "error",
+    });
+  }
+};
+
+const controlEditInstitute = async () => {
+  const { id, title, slug, description } = InstituteView.getEditFormData();
+
+  await model.updateInstitute(id, { title, slug, description });
+
+  console.log(model.state.response);
+  if (model.state.response) {
+    sweetalert2.fire({
+      title: "Updated!",
+      text: "Institute has been updated.",
+      icon: "success",
+    });
+    initializeInstitutesTable();
   }
 };
 
@@ -44,6 +66,7 @@ const initializeInstitutesTable = async () => {
   if (res.status === 200) {
     InstituteView.initializeTableData(res.data);
     InstituteView.bindDeleteInstituteHandler(controlDeleteInstitute);
+    InstituteView.bindEditInstituteHandler(controlEditInstitute);
   }
 };
 

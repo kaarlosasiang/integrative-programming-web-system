@@ -102,9 +102,7 @@ class SubjectsView extends View {
           "Subject Type": subject.type,
           Edit: `
           <div class="d-flex">
-            <a class="btn btn-sm btn-primary mr-1 edit-subject-btn" data-user='${JSON.stringify(
-              subject
-            )}'>Edit</a>
+            <a class="btn btn-sm btn-primary mr-1 edit-subject-btn" data-user='${JSON.stringify(subject)}'>Edit</a>
             <a class="btn btn-sm btn-danger delete-subject-btn" data-id="${
               subject.code
             }">Delete</a>

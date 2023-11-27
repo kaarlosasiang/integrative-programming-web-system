@@ -35,6 +35,7 @@ import sweetalert2 from "../../../assets/js/sweetalert2.js";
 class InstituteView extends View {
   _formData = {};
   _deleteID = "";
+  _editFormData = {};
   tableOptions = {
     dom: '<"dataTables_wrapper dt-bootstrap"<"row"<"col-xl-7 d-block d-sm-flex d-xl-block justify-content-center"<"d-block d-lg-inline-flex mr-0 mr-sm-3"l><"d-block d-lg-inline-flex"B>><"col-xl-5 d-flex d-xl-block justify-content-center"fr>>t<"row"<"col-sm-5"i><"col-sm-7"p>>>',
     buttons: [
@@ -101,8 +102,12 @@ class InstituteView extends View {
           Description: institute.description,
           Edit: `
           <div class="d-flex">
-            <a class="btn btn-sm btn-primary mr-1 edit-student-btn" href="update-subject.html?update=${institute.id}">Edit</a>
-            <a class="btn btn-sm btn-danger delete-institute-btn" data-id="${institute.id}">Delete</a>
+            <a class="btn btn-sm btn-primary mr-1 edit-institute-btn" data-institute='${JSON.stringify(
+              institute
+            )}'>Edit</a>
+            <a class="btn btn-sm btn-danger delete-institute-btn" data-id="${
+              institute.id
+            }">Delete</a>
           </div>`,
         });
       });
@@ -162,6 +167,73 @@ class InstituteView extends View {
 
   getDeleteId() {
     return this._deleteID;
+  }
+
+  bindEditInstituteHandler(handler) {
+    const editBtns = document.querySelectorAll(".edit-institute-btn");
+
+    editBtns.forEach((btn) => {
+      btn.addEventListener("click", async (e) => {
+        const selectedInstitute = JSON.parse(e.target.dataset.institute);
+
+        const { value: formValues } = await sweetalert2.fire({
+          title: "Edit Subject",
+          html: `
+          <input class="form-control" style="display:none;" type="text" id="swal-input1" value="${
+            selectedInstitute.id || ""
+          }" name="description"/>
+            <div class="col-lg-12 row align-items-center">
+              <label class="col-4 col-form-label" for="fullname">Title:</label>
+                  <div class="col-8">
+                      <input class="form-control" type="text" id="swal-input2" value="${
+                        selectedInstitute.title || ""
+                      }" name="description"/>
+                  </div>
+            </div>
+            <div class="col-lg-12 row align-items-center">
+              <label class="col-4 col-form-label" for="fullname">Slug:</label>
+                  <div class="col-8">
+                      <input class="form-control" type="text" id="swal-input3" value="${
+                        selectedInstitute.slug || ""
+                      }" name="description"/>
+                  </div>
+            </div>
+            <div class="col-lg-12 row align-items-center">
+              <label class="col-4 col-form-label" for="fullname">Description:</label>
+                  <div class="col-8">
+                      <input class="form-control" type="text" id="swal-input4" value="${
+                        selectedInstitute.description || ""
+                      }" name="description"/>
+                  </div>
+            </div>
+          `,
+          focusConfirm: false,
+          preConfirm: () => {
+            return {
+              id: document.getElementById("swal-input1").value,
+              title: document.getElementById("swal-input2").value,
+              slug: document.getElementById("swal-input3").value,
+              description: document.getElementById("swal-input4").value,
+            };
+          },
+        });
+
+        if (formValues) {
+          if (
+            formValues.title !== selectedInstitute.title ||
+            formValues.slug !== selectedInstitute.slug ||
+            formValues.description !== selectedInstitute.description
+          ) {
+            this._editFormData = formValues;
+            handler();
+          }
+        }
+      });
+    });
+  }
+
+  getEditFormData() {
+    return this._editFormData;
   }
 }
 

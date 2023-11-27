@@ -87,6 +87,15 @@ export const updateSubject = async (code, formData) => {
   }
 };
 
+export const updateInstitute = async (id, formData) => {
+  try {
+    const res = await http.patch(`/institute.php?id=${id}`, formData);
+    state.response = res;
+  } catch (err) {
+    state.response = err;
+  }
+};
+
 export const deleteStudent = async (id) => {
   try {
     const res = await http.delete(`/student.php?id=${id}`);
