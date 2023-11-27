@@ -30,9 +30,11 @@ import PageHeader from "../../components/PageHeader.js";
 import Panel from "../../components/Panel.js";
 import { AddInstituteForm } from "./components/AddInstituteForm.js";
 import InstituteListTable from "./components/InstituteListTable.js";
+import sweetalert2 from "../../../assets/js/sweetalert2.js";
 
 class InstituteView extends View {
   _formData = {};
+  _deleteID = "";
   tableOptions = {
     dom: '<"dataTables_wrapper dt-bootstrap"<"row"<"col-xl-7 d-block d-sm-flex d-xl-block justify-content-center"<"d-block d-lg-inline-flex mr-0 mr-sm-3"l><"d-block d-lg-inline-flex"B>><"col-xl-5 d-flex d-xl-block justify-content-center"fr>>t<"row"<"col-sm-5"i><"col-sm-7"p>>>',
     buttons: [
@@ -92,7 +94,6 @@ class InstituteView extends View {
       this.tableOptions.data = [];
       // Feed data to the table
       data.data.forEach((institute) => {
-        console.log(institute);
         this.tableOptions.data.push({
           ID: institute.id,
           Title: institute.title,
@@ -101,7 +102,7 @@ class InstituteView extends View {
           Edit: `
           <div class="d-flex">
             <a class="btn btn-sm btn-primary mr-1 edit-student-btn" href="update-subject.html?update=${institute.id}">Edit</a>
-            <a class="btn btn-sm btn-danger delete-faculty-btn" data-id="${institute.id}">Delete</a>
+            <a class="btn btn-sm btn-danger delete-institute-btn" data-id="${institute.id}">Delete</a>
           </div>`,
         });
       });
@@ -119,7 +120,6 @@ class InstituteView extends View {
 
     form.addEventListener("submit", (e) => {
       e.preventDefault();
-      console.log(e.target.elements);
 
       this._formData = {
         title: e.target.elements.title.value.trim(),
@@ -133,6 +133,35 @@ class InstituteView extends View {
 
   getFormData() {
     return { ...this._formData };
+  }
+
+  bindDeleteInstituteHandler(handler) {
+    const delBtns = document.querySelectorAll(".delete-institute-btn");
+
+    delBtns.forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        sweetalert2
+          .fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!",
+          })
+          .then((result) => {
+            if (result.isConfirmed) {
+              this._deleteID = e.target.dataset.id;
+              handler();
+            }
+          });
+      });
+    });
+  }
+
+  getDeleteId() {
+    return this._deleteID;
   }
 }
 
