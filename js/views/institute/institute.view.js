@@ -32,6 +32,7 @@ import { AddInstituteForm } from "./components/AddInstituteForm.js";
 import InstituteListTable from "./components/InstituteListTable.js";
 
 class InstituteView extends View {
+  _formData = {};
   tableOptions = {
     dom: '<"dataTables_wrapper dt-bootstrap"<"row"<"col-xl-7 d-block d-sm-flex d-xl-block justify-content-center"<"d-block d-lg-inline-flex mr-0 mr-sm-3"l><"d-block d-lg-inline-flex"B>><"col-xl-5 d-flex d-xl-block justify-content-center"fr>>t<"row"<"col-sm-5"i><"col-sm-7"p>>>',
     buttons: [
@@ -96,7 +97,7 @@ class InstituteView extends View {
           ID: institute.id,
           Title: institute.title,
           Slug: institute.slug,
-          "Description": institute.description,
+          Description: institute.description,
           Edit: `
           <div class="d-flex">
             <a class="btn btn-sm btn-primary mr-1 edit-student-btn" href="update-subject.html?update=${institute.id}">Edit</a>
@@ -111,6 +112,27 @@ class InstituteView extends View {
     // Destroy the every instantiation to avoid duplicate error
     this.table.destroy();
     this.table = $("#data-table-combine").DataTable(this.tableOptions);
+  }
+
+  bindAddInstituteHandler(handler) {
+    const form = document.getElementById("add-institute-form");
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      console.log(e.target.elements);
+
+      this._formData = {
+        title: e.target.elements.title.value.trim(),
+        slug: e.target.elements.slug.value.trim(),
+        description: e.target.elements.description.value.trim(),
+      };
+
+      handler();
+    });
+  }
+
+  getFormData() {
+    return { ...this._formData };
   }
 }
 

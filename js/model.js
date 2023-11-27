@@ -60,6 +60,15 @@ export const addSubject = async (formData) => {
   }
 };
 
+export const addInstitute = async (formData) => {
+  try {
+    const res = await http.post("/institute.php", formData);
+    state.response = res;
+  } catch (err) {
+    state.response = err;
+  }
+};
+
 export const updateStudent = async (id, formData) => {
   try {
     const res = await http.patch(`/student.php?id=${id}`, formData);

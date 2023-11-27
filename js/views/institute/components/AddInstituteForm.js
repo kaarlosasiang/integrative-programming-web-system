@@ -2,40 +2,25 @@ export function AddInstituteForm() {
   return `
         <form class="form-horizontal" id="add-institute-form" data-parsley-validate="true" method="POST" name="demo-form">
             <div class="row no-gutters">
-    
+  
                 <div class="form-group col-lg-3 col-md-6 col-sm-12 m-b-5">
-                <label class="col-12 col-form-label" for="fullname">Subject Code* :</label>
+                <label class="col-12 col-form-label" for="fullname">Title* :</label>
                     <div class="col-12">
-                        <input class="form-control" type="text" id="subjectcode" name="subjectcode" placeholder="Subject Code" data-parsley-required="true" require/>
+                        <input class="form-control" type="text" id="title" name="title" placeholder="Title" data-parsley-required="true" required/>
                     </div>
                 </div>
   
+                <div class="form-group col-lg-3 col-md-6 col-sm-12 m-b-5">
+                <label class="col-12 col-form-label" for="fullname">Slug* :</label>
+                    <div class="col-12">
+                        <input class="form-control" type="text" id="slug" name="slug" placeholder="Slug" data-parsley-required="true" required/>
+                    </div>
+                </div>
+
                 <div class="form-group col-lg-3 col-md-6 col-sm-12 m-b-5">
                 <label class="col-12 col-form-label" for="fullname">Description* :</label>
                     <div class="col-12">
-                        <input class="form-control" type="text" id="description" name="description" placeholder="description" data-parsley-required="true" require/>
-                    </div>
-                </div>
-  
-                <div class="form-group col-lg-3 col-md-6 col-sm-12 m-b-5">
-                <label class="col-12 col-form-label" for="units">Subject Units* :</label>
-                    <div class="col-12">
-                        <select class="form-control" id="units" name="units">
-                            <option value="" selected>Select Subject Units</option>
-                            <option value="male">1 unit</option>
-                            <option value="female">2 units</option>
-                            <option value="female">3 units</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group col-lg-3 col-md-6 col-sm-12 m-b-5">
-                <label class="col-12 col-form-label" for="subject-type">Subject Type* :</label>
-                    <div class="col-12">
-                        <select class="form-control" id="subject-type" name="subject-type">
-                            <option value="" selected>Select Subject Type</option>
-                            <option value="male">Lecture</option>
-                            <option value="female">Laboratory</option>
-                        </select>
+                        <input class="form-control" type="text" id="description" name="description" placeholder="description" data-parsley-required="true" required/>
                     </div>
                 </div>
                 
