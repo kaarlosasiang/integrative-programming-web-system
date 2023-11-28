@@ -96,7 +96,7 @@ const SidebarNav = () => {
             </a>
         </li>
         <li>
-        <a href="/">
+        <a href="courses.html">
         <i class="fas fa-graduation-cap"></i>
             <span>Courses</span>
         </a>

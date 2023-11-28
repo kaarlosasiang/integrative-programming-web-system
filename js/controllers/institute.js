@@ -34,10 +34,16 @@ const controlDeleteInstitute = async () => {
       icon: "success",
     });
     initializeInstitutesTable();
+  } else if (model.state.response.response.status === 400) {
+    sweetalert2.fire({
+      title: "Error!",
+      text: model.state.response.response.data.message,
+      icon: "error",
+    });
   } else {
     sweetalert2.fire({
       title: "Error!",
-      text: "There was a problem deleting the Institute!",
+      text: "There was an error while deleting!",
       icon: "error",
     });
   }

@@ -5,7 +5,9 @@ import PageLoader from "../../components/PageLoader.js";
 import Panel from "../../components/Panel.js";
 import Sidebar from "../../components/Sidebar.js";
 import View from "../view.js";
-import FacultyListTable from "./components/FacultyListTable.js";
+import AddCourseForm from "./components/AddCourseForm.js";
+import CoursesTable from "./components/CoursesTable.js";
+
 import sweetalert2 from "../../../assets/js/sweetalert2.js";
 
 // Table Plugins
@@ -31,8 +33,9 @@ import "../../../assets/plugins/datatables.net-buttons/js/buttons.html5.min.js";
 import "../../../assets/plugins/datatables.net-buttons/js/buttons.print.min.js";
 import "../../../assets/plugins/jszip/dist/jszip.min.js";
 
-class FacultyListView extends View {
-  _deleteId = "";
+class CoursesView extends View {
+  _formData = {};
+  _deleteID = "";
   tableOptions = {
     dom: '<"dataTables_wrapper dt-bootstrap"<"row"<"col-xl-7 d-block d-sm-flex d-xl-block justify-content-center"<"d-block d-lg-inline-flex mr-0 mr-sm-3"l><"d-block d-lg-inline-flex"B>><"col-xl-5 d-flex d-xl-block justify-content-center"fr>>t<"row"<"col-sm-5"i><"col-sm-7"p>>>',
     buttons: [
@@ -44,11 +47,10 @@ class FacultyListView extends View {
     data: [],
     columns: [
       { data: "ID" },
-      { data: "Full Name" },
-      { data: "Course" },
+      { data: "Title" },
+      { data: "Slug" },
       { data: "Institute" },
-      { data: "Contact" },
-      { data: "Date Registered" },
+      { data: "Description" },
       { data: "Edit" },
     ],
     autoWidth: false,
@@ -63,30 +65,25 @@ class FacultyListView extends View {
 
   generateAppMarkup() {
     return `
-            ${PageLoader()}
-            <div id="page-container" class="fade page-sidebar-fixed page-header-fixed">
+        ${PageLoader()}
+        <div id="page-container" class="fade page-sidebar-fixed page-header-fixed">
                 ${Header()}
                 ${Sidebar()}
     
                 <div class="content" id="content">
-                    ${Breadcrumb("Faculty List")}
-                    ${PageHeader("Faculty List")}
-    
-                    ${Panel(FacultyListTable(), "Faculty List")}
+                    ${Breadcrumb("Courses")}
+                    ${PageHeader("Courses")}
+
+                    ${Panel(AddCourseForm(), "Add Course Form")}
+                    ${Panel(CoursesTable(), "Courses List")}
                 </div>
-            </div>
-        `;
+        </div>
+    `;
   }
 
-  initializeTableData(data) {
+  initializeCoursesTable(data) {
     if (!data || (Array.isArray(data) && data.length === 0))
       console.log("Data is empty");
-
-    const dateOptions = {
-      month: "long",
-      day: "numeric",
-      year: "numeric",
-    };
 
     if ($(window).width() <= 767) {
       this.tableOptions.rowReorder = false;
@@ -94,25 +91,24 @@ class FacultyListView extends View {
       this.tableOptions.autoFill = false;
     }
 
-    if (data) {
+    if (Array.isArray(data.data) && data.data.length > 0) {
       // Clear table data first every instantiation of the table
       this.tableOptions.data = [];
-      // Feed data to the table
-      data.data.forEach((data) => {
+      data.data.forEach((course) => {
         this.tableOptions.data.push({
-          ID: data.id,
-          "Full Name": `${data.firstname} ${data.middlename} ${data.lastname}`,
-          Course: data.course,
-          Institute: data.institute,
-          Contact: data.contact,
-          "Date Registered": new Date(data.registered_at).toLocaleDateString(
-            "en-US",
-            dateOptions
-          ),
+          ID: course.id,
+          Title: course.title,
+          Slug: course.slug,
+          Institute: course.institute,
+          Description: course.description,
           Edit: `
           <div class="d-flex">
-            <a class="btn btn-sm btn-primary mr-1 edit-student-btn" href="update-student.html?update=${data.student_id}">Edit</a>
-            <a class="btn btn-sm btn-danger delete-faculty-btn" data-id="${data.id}">Delete</a>
+            <a class="btn btn-sm btn-primary mr-1 edit-subject-btn" data-user='${JSON.stringify(
+              course
+            )}'>Edit</a>
+            <a class="btn btn-sm btn-danger delete-course-btn" data-id="${
+              course.id
+            }">Delete</a>
           </div>`,
         });
       });
@@ -123,18 +119,51 @@ class FacultyListView extends View {
     // Destroy the every instantiation to avoid duplicate error
     this.table.destroy();
     this.table = $("#data-table-combine").DataTable(this.tableOptions);
-
-    // this.table.on("select", function (e, dt, type, indexes) {
-    //   if (type === "row") {
-    //     var data = table.rows(indexes).data()[0];
-
-    //     console.log(data);
-    //   }
-    // });
   }
-  bindDeleteHandler(handler) {
-    const deleteBtns = document.querySelectorAll(".delete-faculty-btn");
-    deleteBtns.forEach((btn) => {
+
+  bindAddCourseHandler(handler) {
+    const form = document.getElementById("add-course-form");
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      this._formData = {
+        title: e.target.elements.title.value.trim(),
+        slug: e.target.elements.slug.value.trim(),
+        description: e.target.elements.description.value.trim(),
+        institute: e.target.elements.institute.value.trim(),
+      };
+
+      handler();
+    });
+  }
+
+  getFormData() {
+    return { ...this._formData };
+  }
+
+  initializeInstitutesDropdown(data) {
+    const instituteSelect = document.getElementById("institute");
+
+    let defaultOption = document.createElement("option");
+    defaultOption.value = "";
+    defaultOption.text = "Select an Institute";
+
+    instituteSelect.appendChild(defaultOption);
+
+    for (let i = 0; i < data.length; i++) {
+      let option = document.createElement("option");
+      option.value = data[i].slug;
+      option.text = data[i].title;
+
+      instituteSelect.appendChild(option);
+    }
+  }
+
+  bindDeleteCoursesHandler(handler) {
+    const delBtns = document.querySelectorAll(".delete-course-btn");
+
+    delBtns.forEach((btn) => {
       btn.addEventListener("click", (e) => {
         sweetalert2
           .fire({
@@ -148,7 +177,7 @@ class FacultyListView extends View {
           })
           .then((result) => {
             if (result.isConfirmed) {
-              this._deleteId = e.target.dataset.id;
+              this._deleteID = e.target.dataset.id;
               handler();
             }
           });
@@ -157,8 +186,8 @@ class FacultyListView extends View {
   }
 
   getDeleteId() {
-    return this._deleteId;
+    return this._deleteID;
   }
 }
 
-export default new FacultyListView();
+export default new CoursesView();

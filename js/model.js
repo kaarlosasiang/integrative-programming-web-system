@@ -17,7 +17,7 @@ export const state = {
 
 export const get = async (route) => {
   try {
-    const res = await http.get(route);
+    const res = await http.get(route + ".php");
     state.response = res;
   } catch (err) {
     state.response = err;
@@ -63,6 +63,15 @@ export const addSubject = async (formData) => {
 export const addInstitute = async (formData) => {
   try {
     const res = await http.post("/institute.php", formData);
+    state.response = res;
+  } catch (err) {
+    state.response = err;
+  }
+};
+
+export const addCourse = async (formData) => {
+  try {
+    const res = await http.post("/course.php", formData);
     state.response = res;
   } catch (err) {
     state.response = err;
@@ -117,6 +126,15 @@ export const deleteInstitute = async (id) => {
 export const deleteFaculty = async (id) => {
   try {
     const res = await http.delete(`/faculty.php?id=${id}`);
+    state.response = res;
+  } catch (err) {
+    state.response = err;
+  }
+};
+
+export const deleteCourse = async (id) => {
+  try {
+    const res = await http.delete(`/course.php?id=${id}`);
     state.response = res;
   } catch (err) {
     state.response = err;

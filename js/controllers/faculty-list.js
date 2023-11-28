@@ -4,7 +4,7 @@ import * as model from "../model.js";
 
 const init = async () => {
   FacultyListView.render();
-  await model.get("faculty.php");
+  await model.get("faculty");
 
   FacultyListView.initializeTableData(model.state.response.data);
 
@@ -22,7 +22,7 @@ const controlDeleteFaculty = async () => {
       text: "Student has been deleted.",
       icon: "success",
     });
-    await model.get("/faculty.php");
+    await model.get("faculty");
     console.log(model.state.response);
     FacultyListView.initializeTableData(model.state.response.data);
   }
