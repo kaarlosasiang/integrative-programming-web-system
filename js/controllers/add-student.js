@@ -17,7 +17,7 @@ const controlRegisterStudent = async () => {
 };
 
 const getInstitutesList = async () => {
-  await model.get("/institute.php");
+  await model.get("institute");
   const res = model.state.response;
 
   if (res.status === 200) {
@@ -26,7 +26,7 @@ const getInstitutesList = async () => {
 };
 
 const getCoursesList = async () => {
-  await model.get("/course.php");
+  await model.get("course");
   const res = model.state.response;
 
   if (res.status === 200) {

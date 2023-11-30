@@ -66,7 +66,7 @@ const controlEditInstitute = async () => {
 };
 
 const initializeInstitutesTable = async () => {
-  await model.get("/institute.php");
+  await model.get("institute");
 
   const res = model.state.response;
   if (res.status === 200) {

@@ -6,7 +6,7 @@ const init = async () => {
   SubjectsView.render();
   SubjectsView.bindAddSubjectHandler(controlAddSubject);
 
-  await model.get("/subject.php");
+  await model.get(" subject");
 
   const res = model.state.response;
   console.log(res);

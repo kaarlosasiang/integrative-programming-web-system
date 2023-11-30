@@ -13,7 +13,7 @@ const init = async () => {
 };
 
 const getStudentsList = async () => {
-  await model.get("/student.php");
+  await model.get("student");
 };
 
 const controlDeleteStudent = async () => {
