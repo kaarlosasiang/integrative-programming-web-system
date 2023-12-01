@@ -63,6 +63,10 @@ class LoginView extends View {
   getFormData() {
     return { ...this.formData };
   }
+
+  handleSuccessLogin(){
+	
+  }
 }
 
 export default new LoginView();

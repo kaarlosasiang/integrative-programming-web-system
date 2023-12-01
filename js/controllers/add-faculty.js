@@ -1,11 +1,16 @@
 import AddFacultyView from "../views/add-faculty/add-faculty.view.js";
 import * as model from "../model.js";
+import * as helpers from "../helpers.js";
 
 const init = async () => {
-  AddFacultyView.render();
-  getInstitutesList();
-  getCoursesList();
-  AddFacultyView.bindAddFacultyHandler(controlAddFaculty);
+  if (helpers.checkLogin()) {
+    AddFacultyView.render();
+    getInstitutesList();
+    getCoursesList();
+    AddFacultyView.bindAddFacultyHandler(controlAddFaculty);
+  } else {
+    AddFacultyView.redirectTo("login");
+  }
 };
 
 const controlAddFaculty = async () => {

@@ -24,6 +24,15 @@ export const get = async (route) => {
   }
 };
 
+export const getEditStudent = async (route) => {
+  try {
+    const res = await http.get(route);
+    state.response = res;
+  } catch (err) {
+    state.response = err;
+  }
+};
+
 export const login = async (formData) => {
   try {
     const res = await http.post("/auth/login.php", formData);

@@ -1,19 +1,24 @@
 import SubjectsView from "../views/subjects/subjects.view.js";
 import sweetalert2 from "../../assets/js/sweetalert2.js";
 import * as model from "../model.js";
+import * as helpers from "../helpers.js";
 
 const init = async () => {
-  SubjectsView.render();
-  SubjectsView.bindAddSubjectHandler(controlAddSubject);
+  if (helpers.checkLogin()) {
+    SubjectsView.render();
+    SubjectsView.bindAddSubjectHandler(controlAddSubject);
 
-  await model.get(" subject");
+    await model.get("subject");
 
-  const res = model.state.response;
-  console.log(res);
-  if (res.status === 200) {
-    SubjectsView.initializeTableData(res.data);
-    SubjectsView.bindDeleteSubjectHandler(controlDeleteSubject);
-    SubjectsView.bindEditSubjectHandler(controlEditSubject);
+    const res = model.state.response;
+    console.log(res);
+    if (res.status === 200) {
+      SubjectsView.initializeTableData(res.data);
+      SubjectsView.bindDeleteSubjectHandler(controlDeleteSubject);
+      SubjectsView.bindEditSubjectHandler(controlEditSubject);
+    }
+  } else {
+    SubjectsView.redirectTo("login");
   }
 };
 

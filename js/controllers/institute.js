@@ -1,12 +1,17 @@
 import InstituteView from "../views/institute/institute.view.js";
 import * as model from "../model.js";
 import sweetalert2 from "../../assets/js/sweetalert2.js";
+import * as helpers from "../helpers.js";
 
 const init = async () => {
-  InstituteView.render();
-  InstituteView.bindAddInstituteHandler(controlAddInstitute);
+  if (helpers.checkLogin()) {
+    InstituteView.render();
+    InstituteView.bindAddInstituteHandler(controlAddInstitute);
 
-  initializeInstitutesTable();
+    initializeInstitutesTable();
+  } else {
+    InstituteView.redirectTo("login");
+  }
 };
 
 const controlAddInstitute = async () => {

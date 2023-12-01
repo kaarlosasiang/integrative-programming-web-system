@@ -1,11 +1,16 @@
 import coursesView from "../views/courses/courses.view.js";
 import * as model from "../model.js";
+import * as helpers from "../helpers.js";
 
 const init = () => {
-  coursesView.render();
-  getInstitutesList();
-  initializeCoursesTable();
-  coursesView.bindAddCourseHandler(controlAddCourse);
+  if (helpers.checkLogin()) {
+    coursesView.render();
+    getInstitutesList();
+    initializeCoursesTable();
+    coursesView.bindAddCourseHandler(controlAddCourse);
+  } else {
+    coursesView.redirectTo("login");
+  }
 };
 
 const initializeCoursesTable = async () => {

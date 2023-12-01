@@ -1,14 +1,19 @@
 import FacultyListView from "../views/faculty-list/faculty-list.view.js";
 import sweetalert2 from "../../assets/js/sweetalert2.js";
 import * as model from "../model.js";
+import * as helpers from "../helpers.js";
 
 const init = async () => {
-  FacultyListView.render();
-  await model.get("faculty");
+  if (helpers.checkLogin()) {
+    FacultyListView.render();
+    await model.get("faculty");
 
-  FacultyListView.initializeTableData(model.state.response.data);
+    FacultyListView.initializeTableData(model.state.response.data);
 
-  FacultyListView.bindDeleteHandler(controlDeleteFaculty);
+    FacultyListView.bindDeleteHandler(controlDeleteFaculty);
+  } else {
+    FacultyListView.redirectTo("login");
+  }
 };
 
 const controlDeleteFaculty = async () => {

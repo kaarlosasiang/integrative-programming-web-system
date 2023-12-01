@@ -1,15 +1,20 @@
 import StudentsListView from "../views/students-list/students-list.view.js";
 import sweetalert2 from "../../assets/js/sweetalert2.js";
 import * as model from "../model.js";
+import * as helpers from "../helpers.js";
 
 const init = async () => {
-  StudentsListView.render();
+  if (helpers.checkLogin()) {
+    StudentsListView.render();
 
-  await getStudentsList();
+    await getStudentsList();
 
-  handleHttpResponse(model.state.response);
+    handleHttpResponse(model.state.response);
 
-  StudentsListView.bindDeleteHandler(controlDeleteStudent);
+    StudentsListView.bindDeleteHandler(controlDeleteStudent);
+  } else {
+    StudentsListView.redirectTo("login");
+  }
 };
 
 const getStudentsList = async () => {

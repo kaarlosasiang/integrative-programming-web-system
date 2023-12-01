@@ -1,5 +1,6 @@
 import AddStudentView from "../views/add-student/add-student.view.js";
 import * as model from "../model.js";
+import * as helpers from "../helpers.js";
 
 const controlRegisterStudent = async () => {
   // get data
@@ -35,10 +36,14 @@ const getCoursesList = async () => {
 };
 
 const init = () => {
-  AddStudentView.render();
-  getInstitutesList();
-  getCoursesList();
-  AddStudentView.bindFormSubmitHandler(controlRegisterStudent);
+  if (helpers.checkLogin()) {
+    AddStudentView.render();
+    getInstitutesList();
+    getCoursesList();
+    AddStudentView.bindFormSubmitHandler(controlRegisterStudent);
+  } else {
+    AddStudentView.redirectTo("login");
+  }
 };
 
 init();

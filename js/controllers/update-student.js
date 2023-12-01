@@ -1,28 +1,33 @@
 import UpdateStudentView from "../views/update-student/update-student.view.js";
 import * as model from "../model.js";
+import * as helpers from "../helpers.js";
 
 const URLparams = new URLSearchParams(window.location.search);
 const updateId = URLparams.get("update");
 
 const init = async () => {
-  UpdateStudentView.render();
+  if (helpers.checkLogin()) {
+    UpdateStudentView.render();
 
-  if (updateId) {
-    await model.get(`/student.php?id=${updateId}`);
-    const res = model.state.response;
-    if (res.status === 200) {
-      UpdateStudentView.initalizeInputValues(res.data);
+    if (updateId) {
+      await model.getEditStudent(`/student.php?id=${updateId}`);
+      const res = model.state.response;
+      if (res.status === 200) {
+        UpdateStudentView.initalizeInputValues(res.data);
+      } else {
+        UpdateStudentView.showToast("Student do not exist!", "error");
+        setTimeout(() => {
+          UpdateStudentView.redirectTo("students-list");
+        }, 1000);
+      }
     } else {
-      UpdateStudentView.showToast("Student do not exist!", "error");
-      setTimeout(() => {
-        UpdateStudentView.redirectTo("students-list");
-      }, 1000);
+      UpdateStudentView.redirectTo("students-list");
     }
-  } else {
-    UpdateStudentView.redirectTo("students-list");
-  }
 
-  UpdateStudentView.bindUpdateStudentHandler(controlUpdateStudent);
+    UpdateStudentView.bindUpdateStudentHandler(controlUpdateStudent);
+  } else {
+    UpdateStudentView.redirectTo("login");
+  }
 };
 
 const controlUpdateStudent = async () => {
