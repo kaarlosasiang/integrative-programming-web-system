@@ -1,5 +1,8 @@
+import * as helpers from "../helpers.js";
+
 export default function Sidebar() {
-  return `
+  if (helpers.checkLogin()) {
+    return `
     <div id="sidebar" class="sidebar">
         <!-- begin sidebar scrollbar -->
         <div data-scrollbar="true" data-height="100%">
@@ -9,19 +12,24 @@ export default function Sidebar() {
     </div>
     <div class="sidebar-bg"></div>
   `;
+  }
 }
 
 const UserSidebar = () => {
+  const current_user = JSON.parse(helpers.getDataLocalStorage("current_user"));
+
+  console.log();
+
   return `
     <ul class="nav">
         <li class="nav-profile">
             <a href="javascript:;" data-toggle="nav-profile">
                 <div class="cover with-shadow"></div>
                 <div class="image">
-                <img src="./assets/img/user/user-13.jpg" alt="" />
+                <img src="./assets/img/user/user-12.jpg" alt="" />
                 </div>
                 <div class="info">
-                <b class="caret pull-right"></b>Sean Ngu
+                <b class="caret pull-right"></b>${current_user.firstname} ${current_user.lastname}
                 <small>Front end developer</small>
                 </div>
             </a>

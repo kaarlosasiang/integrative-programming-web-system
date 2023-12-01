@@ -1,5 +1,13 @@
-export const StoreUserDetails = (id, token = "") => {
-  localStorage.setItem("uid", id);
+export const storeToLocalStorage = (title, value) => {
+  localStorage.setItem(title, value);
+};
+
+export const getDataLocalStorage = (title) => {
+  return localStorage.getItem(title);
+};
+
+export const deleteDataLocalStorage = (title) => {
+  localStorage.removeItem(title);
 };
 
 export const checkLogin = () => {

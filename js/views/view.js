@@ -1,6 +1,7 @@
 import "../../assets/js/app.min.js";
 import "../../assets/js/theme/default.min.js";
 import sweetalert2 from "../../assets/js/sweetalert2.js";
+import * as helpers from "../helpers.js";
 
 export default class View {
   appContainer = document.getElementById("app");
@@ -41,5 +42,8 @@ export default class View {
     window.location.href = `${page}.html`;
   }
 
-  logout() {}
+  logout() {
+    helpers.deleteDataLocalStorage("uid");
+    helpers.deleteDataLocalStorage("current_user");
+  }
 }

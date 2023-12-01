@@ -7,7 +7,18 @@ const init = () => {
     loginView.render();
     loginView.bindLoginHandler(controlLogin);
   } else {
+    controlLogout();
     loginView.redirectTo("index");
+  }
+};
+
+const controlLogout = () => {
+  const urlParams = new URLSearchParams(window.location.search);
+
+  const isLogout = urlParams.get("logout");
+
+  if (isLogout) {
+    loginView.logout();
   }
 };
 
@@ -16,12 +27,21 @@ const controlLogin = async () => {
 
   await model.login(data);
 
-  console.log(model.state.response);
+  const res = model.state.response;
 
-  if (model.state.response.status === 200) {
-    helpers.StoreUserDetails("1");
+  console.log(res);
+
+  if (res.status === 200) {
+    helpers.storeToLocalStorage("uid", res.data.user_id);
+    helpers.storeToLocalStorage(
+      "current_user",
+      JSON.stringify({
+        firstname: res.data.firstname,
+        lastname: res.data.lastname,
+      })
+    );
     loginView.redirectTo("index");
-  } else if (model.state.response.response.status === 409) {
+  } else if (res.response.status === 409) {
     loginView.showToast("Password or Email is incorrect!", "error");
   } else {
     loginView.showToast(

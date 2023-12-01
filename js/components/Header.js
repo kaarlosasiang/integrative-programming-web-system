@@ -1,3 +1,5 @@
+import * as helpers from "../helpers.js";
+
 export default function Header() {
   return `
   <div id="header" class="header navbar-default">
@@ -41,23 +43,18 @@ const SearchBar = () => {
 };
 
 const ProfileDropdown = () => {
+  const current_user = JSON.parse(helpers.getDataLocalStorage("current_user"));
+
   return `
     <ul class="navbar-nav navbar-right">
         <li class="dropdown navbar-user">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <img src="./assets/img/user/user-13.jpg" alt="" />
-                <span class="d-none d-md-inline">Adam Schwartz</span>
+                <img src="./assets/img/user/user-12.jpg" alt="" />
+                <span class="d-none d-md-inline">${current_user.firstname} ${current_user.lastname}</span>
                 <b class="caret"></b>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
-                <a href="javascript:;" class="dropdown-item">Edit Profile</a>
-                <a href="javascript:;" class="dropdown-item"
-                ><span class="badge badge-danger pull-right">2</span> Inbox</a
-                >
-                <a href="javascript:;" class="dropdown-item">Calendar</a>
-                <a href="javascript:;" class="dropdown-item">Setting</a>
-                <div class="dropdown-divider"></div>
-                <a href="javascript:;" class="dropdown-item">Log Out</a>
+                <a href="login.html?logout=1" class="dropdown-item">Log Out</a>
             </div>
         </li>
     </ul>
