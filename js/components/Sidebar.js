@@ -26,11 +26,11 @@ const UserSidebar = () => {
             <a href="javascript:;" data-toggle="nav-profile">
                 <div class="cover with-shadow"></div>
                 <div class="image">
-                <img src="./assets/img/user/user-12.jpg" alt="" />
+                    <img src="./assets/img/user/user-12.jpg" alt="" />
                 </div>
                 <div class="info">
-                <b class="caret pull-right"></b>${current_user.firstname} ${current_user.lastname}
-                <small>Front end developer</small>
+                    <b class="caret pull-right"></b>${current_user.firstname} ${current_user.lastname}
+                    <small>Admin</small>
                 </div>
             </a>
             </li>
@@ -104,11 +104,17 @@ const SidebarNav = () => {
             </a>
         </li>
         <li>
-        <a href="courses.html">
-        <i class="fas fa-graduation-cap"></i>
-            <span>Courses</span>
-        </a>
-    </li>
+            <a href="courses.html">
+            <i class="fas fa-graduation-cap"></i>
+                <span>Courses</span>
+            </a>
+        </li>
+        <li>
+            <a href="grades.html">
+            <i class="fas fa-graduation-cap"></i>
+                <span>Grades</span>
+            </a>
+        </li>
 
         <!-- begin sidebar minify button -->
         <!-- <li>
